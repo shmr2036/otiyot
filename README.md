@@ -32,7 +32,11 @@ python3 tools/build_share.py   # -> share/maaseh-otiyot.html
 
 ## עדיין להשלים ⚠️
 - **פיקסל מטא** — להדביק את הקוד במקום המסומן ב-`<head>` (`Meta Pixel`) כשיתקבל.
-- **אירוח** — לפרסם בנתיב נפרד (למשל `emilim.net/maaseh-otiyot/`) בלי לגעת בדף הקיים של חלון לרוח. כל הנתיבים בדף יחסיים, אז מספיק להעלות את `index.html` ואת `assets/` לאותה תיקייה.
+
+## אירוח
+הדף מתארח ב-GitHub Pages (`shmr2036/otiyot`, ענף `main`, תיקיית השורש) בכתובת **https://otiyot.emilim.net/**. כל push ל-`main` עולה לאוויר תוך כדקה.
+- הקובץ `CNAME` מגדיר את הדומיין. ב-DNS של emilim.net (לוח הבקרה של Vangus ← הגדרות DNS) יש רשומה `otiyot CNAME shmr2036.github.io`.
+- כתובות ה-`og:url` / `og:image` ב-`index.html` מוחלטות, כדי שוואטסאפ ופייסבוק יציגו תצוגה מקדימה. אם הכתובת משתנה, צריך לעדכן גם אותן.
 
 ההמלצות והסרטונים (Vimeo) לקוחים מדף חלון לרוח באישור. החלטות הלקוח מתועדות ב-`PRODUCT.md`.
 
