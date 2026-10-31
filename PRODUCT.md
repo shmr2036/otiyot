@@ -55,7 +55,7 @@ Success for this page: registrations paid through the invoice4u payment page, wi
 
 ## Brand Commitments
 
-- **Name and lockup:** "מעשה אותיות", with the tagline "לדעת להדליק ניצוץ. לדעת לכתוב באש."
+- **Name and lockup:** "מעשה אותיות", with the tagline "זמן להדליק ניצוץ. זמן לכתוב באש."
 - **Voice:** intimate first person from Emily. Poetic and warm, with feminine address (את). Fire and ember metaphors run throughout (גחל, ניצוץ, בעירה, להבה), as does the wordplay אִשֵּׁךְ / אִישֵׁךְ (your fire / your man). Playful touches like "ריטריטון" and "אחלה מזג אוויר" are part of the voice and should be kept, not sanded off.
 - **Parent brand:** "אמילים — אמנות במילים" (emilim.net). It is a sister product to "חלון לרוח".
 - **Supplied assets are binding as brand material:** the designed hero poster and the portraits of Emily (see Evidence).

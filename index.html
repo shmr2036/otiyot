@@ -177,10 +177,24 @@
     header.site.scrolled .brand { color: var(--ink); }
     .brand .dot { color: var(--ember-bright); }
     header.site.scrolled .brand .dot { color: var(--ember); }
+    /* Over the hero the name is the page title, set large with its subtitle;
+       once scrolled it shrinks back to a compact bar */
+    .brand-block { display: flex; flex-direction: column; gap: 2px; }
+    header.site .brand {
+      font-size: clamp(1.9rem, 7.6vw, 2.8rem); line-height: 1.1;
+      transition: color .3s var(--ease), font-size .3s var(--ease);
+    }
+    .brand-sub {
+      font-weight: 600; font-size: clamp(.92rem, 2.6vw, 1.1rem); line-height: 1.3;
+      color: var(--cream-soft); max-height: 2em; overflow: hidden;
+      transition: opacity .25s var(--ease), max-height .3s var(--ease);
+    }
+    header.site.scrolled .brand { font-size: 1.5rem; }
+    header.site.scrolled .brand-sub { opacity: 0; max-height: 0; }
     header.site .btn { padding: 10px 24px; font-size: .95rem; }
     @media (max-width: 620px) {
       header.site { padding-block: 10px; }
-      .brand { font-size: 1.25rem; }
+      header.site.scrolled .brand { font-size: 1.25rem; }
       header.site .btn { padding: 9px 18px; font-size: .9rem; min-height: 44px; }
     }
 
@@ -189,7 +203,7 @@
       min-height: 100svh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 92px 0 88px;
+      padding: 132px 0 88px;
       color: var(--cream);
       position: relative;
       /* Sampled from the poster's own edge so the image dissolves into the page;
@@ -200,17 +214,17 @@
     .hero .container { position: relative; z-index: 1; }
     .hero h1 { color: var(--cream); }
     .hero-art {
-      /* Poster shrinks on short viewports so the dates stay above the fold */
-      width: min(94vw, clamp(280px, calc(100svh - 250px), 660px));
-      height: auto; aspect-ratio: 1;
+      /* Hands only (title cropped off); shrinks on short viewports so the dates stay above the fold */
+      width: min(94vw, 680px, max(300px, calc((100svh - 330px) * 1.46)));
+      height: auto; aspect-ratio: 1080 / 740;
       margin: 0 auto 22px;
       -webkit-mask-image:
         linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
-        linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+        linear-gradient(to bottom, transparent, #000 14%, #000 93%, transparent);
       -webkit-mask-composite: source-in;
       mask-image:
         linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
-        linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent);
+        linear-gradient(to bottom, transparent, #000 14%, #000 93%, transparent);
       mask-composite: intersect;
     }
     .sr-only {
@@ -242,6 +256,7 @@
     .hero .scroll-hint svg { width: 18px; height: 18px; color: var(--amber); }
     @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
     @media (max-width: 620px) {
+      .hero { padding-top: 112px; }
       .chip { padding: 8px 14px; font-size: .92rem; }
     }
 
@@ -271,8 +286,7 @@
     .intro h2 { margin-bottom: 20px; }
     .intro p.body { color: var(--cream-soft); font-size: 1.12rem; margin-bottom: 18px; max-width: 34em; }
     /* Brighter ember so bold words keep >=4.5:1 where they cross the glow */
-    .intro p.body strong, .intro .fire-word { color: var(--ember-glow); font-weight: 700; }
-    .intro .fire-word { white-space: nowrap; }
+    .intro p.body strong { color: var(--ember-glow); font-weight: 700; }
     .intro .btn { margin-top: 12px; }
 
     /* No frame: the portrait's edges fade into the matching section colour */
@@ -565,7 +579,10 @@
 
   <!-- ===================== HEADER ===================== -->
   <header class="site" id="siteHeader">
-    <a href="#top" class="brand">מעשה<span class="dot"> · </span>אותיות</a>
+    <a href="#top" class="brand-block">
+      <span class="brand">מעשה<span class="dot"> · </span>אותיות</span>
+      <span class="brand-sub">סדנת כתיבה עם אמילי עמרוסי</span>
+    </a>
     <a href="https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=790f586f-6197-4308-b5bf-d2cef41788ca"
        class="btn nav-cta" target="_blank" rel="noopener">אמילי אני איתך</a>
   </header>
@@ -575,8 +592,8 @@
     <div class="container">
       <h1 class="sr-only">מעשה אותיות — ריטריט יום של כתיבה עם אמילי עמרוסי</h1>
 
-      <img class="hero-art reveal" src="assets/images/hero.jpg" width="1080" height="1080" fetchpriority="high"
-           alt="מעשה אותיות — סדנת כתיבה עם אמילי עמרוסי · לדעת להדליק ניצוץ, לדעת לכתוב באש" />
+      <img class="hero-art reveal" src="assets/images/hero-hands.jpg" width="1080" height="740" fetchpriority="high"
+           alt="ידיים מושטות אל קרן אור · זמן להדליק ניצוץ. זמן לכתוב באש." />
 
       <div class="meta-chips reveal">
         <span class="chip">
@@ -613,17 +630,11 @@
           <p class="lead">הי, כאן אמילי עמרוסי</p>
           <h2>הגחל שלך לא כבה.</h2>
           <p class="body">
-            תסמכי עליי. אפשר להצית את הניצוץ. לחולל בעירה טובה. גם לשלוט בלהבה.
+            אפשר להצית את הניצוץ. לחולל בעירה טובה. גם לשלוט בלהבה.
           </p>
           <p class="body">
-            אין על <strong>כתיבת חלימה</strong> כדי להגיע לאש היוקדת בתוכך. את חייבת לנסות.
-            והפעם – ריטריטון. יום אחד מרוכז.
-          </p>
-          <p class="body">
-            ניפגש בחאן מצוקי דרגות היפהפה, עם ארוחות מלאות, סדנת תנועת לשונות אש עם
-            <strong>שקמה גנזל</strong> המופלאה, וסדנאות כתיבה שבהן נחקור את האש שלך –
-            <span class="fire-word">אִשֵּׁךְ</span>, ואת האיש שלך –
-            <span class="fire-word">אִישֵׁךְ</span> (בין אם נוכח בחייך ובין אם עוד לא בא).
+            ניפגש בחאן מצוקי דרגות היפהפה, ליום מרוכז (ריטריטון), עם ארוחות מלאות, סדנת תנועת לשונות אש עם
+            <strong>שקמה גנזל</strong> המופלאה, וסדנאות כתיבה שבהן נחקור את האש היוקדת בתוכך.
           </p>
           <p class="body">
             מזמינה אותך להצטרף אליי ליום שכולו שיגעון חיובי. ניתוק מדברי. וחיבוק לעצמך.
