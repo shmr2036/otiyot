@@ -135,7 +135,7 @@
       --btn-bg: linear-gradient(135deg, var(--ember-deep), var(--ember-btn));
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       font-family: 'Assistant', sans-serif;
-      font-weight: 700; font-size: 1.05rem;
+      font-weight: 700; font-size: 1.05rem; white-space: nowrap;
       color: #fff8ef;
       background: var(--btn-bg);
       padding: 15px 38px;
@@ -181,7 +181,7 @@
        once scrolled it shrinks back to a compact bar */
     .brand-block { display: flex; flex-direction: column; gap: 2px; }
     header.site .brand {
-      font-size: clamp(1.9rem, 7.6vw, 2.8rem); line-height: 1.1;
+      font-size: clamp(1.9rem, 7.6vw, 3.4rem); line-height: 1.1;
       transition: color .3s var(--ease), font-size .3s var(--ease);
     }
     .brand-sub {
@@ -194,6 +194,16 @@
     header.site .btn { padding: 10px 24px; font-size: .95rem; }
     @media (max-width: 620px) {
       header.site { padding-block: 10px; }
+      /* Phones: the title and the button don't fit on one row, so over the hero
+         the button keeps the top corner and the title gets a full-width row */
+      header.site:not(.scrolled) {
+        display: grid; grid-template-columns: 1fr auto;
+        grid-template-areas: ". cta" "brand brand"; row-gap: 4px; align-items: start;
+      }
+      header.site:not(.scrolled) .brand-block { grid-area: brand; }
+      header.site:not(.scrolled) .nav-cta { grid-area: cta; }
+      header.site .brand { font-size: clamp(2.4rem, 12vw, 3.2rem); }
+      .brand-sub { white-space: nowrap; font-size: clamp(1rem, 4.6vw, 1.2rem); }
       header.site.scrolled .brand { font-size: 1.25rem; }
       header.site .btn { padding: 9px 18px; font-size: .9rem; min-height: 44px; }
     }
@@ -203,7 +213,7 @@
       min-height: 100svh;
       display: flex; align-items: center; justify-content: center;
       text-align: center;
-      padding: 132px 0 88px;
+      padding: 150px 0 88px;
       color: var(--cream);
       position: relative;
       /* Sampled from the poster's own edge so the image dissolves into the page;
@@ -256,7 +266,7 @@
     .hero .scroll-hint svg { width: 18px; height: 18px; color: var(--amber); }
     @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
     @media (max-width: 620px) {
-      .hero { padding-top: 112px; }
+      .hero { padding-top: 172px; }
       .chip { padding: 8px 14px; font-size: .92rem; }
     }
 
@@ -286,7 +296,6 @@
     .intro h2 { margin-bottom: 20px; }
     .intro p.body { color: var(--cream-soft); font-size: 1.12rem; margin-bottom: 18px; max-width: 34em; }
     /* Brighter ember so bold words keep >=4.5:1 where they cross the glow */
-    .intro p.body strong { color: var(--ember-glow); font-weight: 700; }
     .intro .btn { margin-top: 12px; }
 
     /* No frame: the portrait's edges fade into the matching section colour */
@@ -634,7 +643,7 @@
           </p>
           <p class="body">
             ניפגש בחאן מצוקי דרגות היפהפה, ליום מרוכז (ריטריטון), עם ארוחות מלאות, סדנת תנועת לשונות אש עם
-            <strong>שקמה גנזל</strong> המופלאה, וסדנאות כתיבה שבהן נחקור את האש היוקדת בתוכך.
+            שקמה גנזל המופלאה, וסדנאות כתיבה שבהן נחקור את האש היוקדת בתוכך.
           </p>
           <p class="body">
             מזמינה אותך להצטרף אליי ליום שכולו שיגעון חיובי. ניתוק מדברי. וחיבוק לעצמך.
