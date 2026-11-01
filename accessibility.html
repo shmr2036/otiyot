@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>הצהרת נגישות · מעשה אותיות</title>
+  <meta name="description" content="הצהרת הנגישות של דף הריטריט מעשה אותיות עם אמילי עמרוסי, ופרטי רכזת הנגישות." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Same palette and type as the landing page, set as a plain reading page */
+    :root {
+      --parchment: #f8f2e7;
+      --parchment-2: #f2e9d8;
+      --ink: #2a211c;
+      --ink-soft: #5c4f44;
+      --ember: #c2551c;
+      --ember-deep: #a8431a;
+      --burgundy: #7c2c1b;
+      --dark: #1b1410;
+      --cream: #f3e8d6;
+      --cream-soft: #cbb9a2;
+      --amber: #d99a3d;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background: rgba(226, 119, 44, .32); }
+    :focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: 6px; }
+    body {
+      font-family: 'Assistant', 'Segoe UI', system-ui, sans-serif;
+      background: var(--parchment); color: var(--ink);
+      font-size: 18px; line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2 { font-family: 'Frank Ruhl Libre', 'Times New Roman', serif; line-height: 1.25; text-wrap: balance; }
+    a { color: var(--burgundy); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    a:hover { color: var(--ember-deep); }
+
+    .skip-link {
+      position: absolute; inset-inline-start: 16px; top: -100px; z-index: 10;
+      background: var(--cream); color: var(--ink); font-weight: 700; text-decoration: none;
+      padding: 10px 20px; border-radius: 999px;
+    }
+    .skip-link:focus { top: 12px; }
+
+    header.site { background: var(--dark); padding: 18px clamp(20px, 5vw, 48px); }
+    header.site :focus-visible { outline-color: var(--amber); }
+    .brand {
+      font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: 1.6rem;
+      color: var(--cream); text-decoration: none;
+    }
+    .brand .dot { color: #e2772c; }
+
+    main { max-width: 46rem; margin: 0 auto; padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 32px) 72px; }
+    h1 { font-size: clamp(2.2rem, 7vw, 3rem); font-weight: 900; margin-bottom: 8px; }
+    .updated { color: var(--ink-soft); margin-bottom: 36px; }
+    h2 { font-size: clamp(1.4rem, 4vw, 1.75rem); font-weight: 700; margin: 40px 0 12px; }
+    p + p { margin-top: 12px; }
+    ul { padding-inline-start: 1.3em; }
+    li + li { margin-top: 8px; }
+    li::marker { color: var(--ember); }
+
+    .contact {
+      margin-top: 16px; padding: 22px 24px; border-radius: 18px;
+      background: var(--parchment-2); border: 1px solid rgba(124,44,27,.18);
+    }
+    .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; }
+    .contact dt { font-weight: 700; }
+    .contact dd { min-width: 0; overflow-wrap: anywhere; }
+    .contact a { font-variant-numeric: tabular-nums; }
+
+    .back { display: inline-block; margin-top: 48px; font-weight: 700; padding-block: 10px; }
+
+    footer.site { background: var(--dark); color: var(--cream-soft); text-align: center; padding: 28px 20px; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+
+  <header class="site">
+    <a href="./" class="brand">מעשה<span class="dot"> · </span>אותיות</a>
+  </header>
+
+  <main id="main">
+    <h1>הצהרת נגישות</h1>
+    <p class="updated">עודכנה לאחרונה: 1 בנובמבר 2026</p>
+
+    <p>
+      חשוב לנו שכל אישה תוכל לקרוא על ריטריט "מעשה אותיות" ולהירשם אליו בקלות, כולל נשים עם מוגבלות.
+      הדף הונגש בהתאם לתקנות שוויון זכויות לאנשים עם מוגבלות (התאמות נגישות לשירות), התשע"ג-2013,
+      ולתקן הישראלי ת"י 5568 ברמת AA, המבוסס על הנחיות WCAG.
+    </p>
+
+    <h2>מה עשינו כדי להנגיש את הדף</h2>
+    <ul>
+      <li>הדף כתוב בעברית מימין לשמאל, עם מבנה כותרות מסודר וסימון אזורים לקוראי מסך.</li>
+      <li>אפשר לנווט בכל הדף באמצעות המקלדת. הרכיב שנבחר מסומן במסגרת בולטת, ובתחילת הדף יש קישור "דלג לתוכן הראשי".</li>
+      <li>לכל התמונות שמוסרות מידע יש טקסט חלופי.</li>
+      <li>ניגודיות הצבעים בין הטקסט לרקע עומדת בדרישות התקן.</li>
+      <li>אפשר להגדיל את הטקסט בדפדפן עד פי שניים בלי לאבד תוכן, והדף מותאם לטלפונים ולמסכים בכל גודל.</li>
+      <li>לכל תוכן שזז או מתחלף (ההמלצות והטקסט הנע) יש כפתור עצירה. מי שהגדירה במכשיר "הפחתת תנועה" תקבל דף בלי אנימציות.</li>
+      <li>השאלות והתשובות בנויות כרכיבים שנפתחים ונסגרים במקלדת ובקורא מסך.</li>
+      <li>לכפתורים ולקישורים יש שמות שמתארים לאן הם מובילים, כולל ציון של קישורים שנפתחים בכרטיסייה חדשה.</li>
+      <li>לסרטונים יש כתוביות בעברית.</li>
+    </ul>
+
+    <h2>חלקים שאינם בשליטתנו</h2>
+    <p>
+      התשלום מתבצע בדף הסליקה של Invoice4U, הסרטונים מוצגים בנגן של Vimeo, ופניות בוואטסאפ נפתחות באפליקציה של WhatsApp.
+      הנגישות של שירותים אלה היא באחריות החברות שמפעילות אותם. אם נתקלת בקושי באחד מהם, נשמח לעזור בהרשמה גם בטלפון.
+    </p>
+
+    <h2>נגישות מקום הריטריט</h2>
+    <p>
+      הריטריט מתקיים בחאן מצוקי דרגות שבמדבר יהודה, מעל ים המלח.
+      לפרטים על הנגישות הפיזית של המקום (חניה, דרכי גישה, שירותים ומקומות ישיבה), ולתיאום התאמות שתצטרכי ביום עצמו,
+      אפשר לפנות לרכזת הנגישות.
+    </p>
+
+    <h2>נתקלת בבעיה? דברי איתנו</h2>
+    <p>
+      אנחנו ממשיכות לשפר את הנגישות של הדף. אם משהו לא עובד כמו שצריך, או שאת זקוקה למידע בדרך אחרת,
+      נשמח לשמוע ולתקן.
+    </p>
+    <div class="contact">
+      <dl>
+        <dt>רכזת נגישות</dt>
+        <dd>שולמית בן ישר</dd>
+        <dt>טלפון</dt>
+        <dd><a href="tel:+972505449120">050-544-9120</a></dd>
+        <dt>וואטסאפ</dt>
+        <dd><a href="https://wa.me/972505449120" target="_blank" rel="noopener" aria-label="וואטסאפ לשולמית (נפתח בכרטיסייה חדשה)">050-544-9120</a></dd>
+        <dt>דוא"ל</dt>
+        <dd><a href="mailto:shmr2036@gmail.com">shmr2036@gmail.com</a></dd>
+      </dl>
+    </div>
+
+    <a class="back" href="./">חזרה לדף מעשה אותיות</a>
+  </main>
+
+  <footer class="site">
+    <p>© 2026 · כל הזכויות שמורות לאמילי עמרוסי</p>
+  </footer>
+</body>
+</html>

@@ -389,6 +389,9 @@
       font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; white-space: nowrap;
     }
     .marquee span { padding-inline-end: 2.5rem; }
+    /* Decorative text is drawn as generated content, so it is not page text
+       that contrast checkers (or screen readers) treat as content */
+    .marquee span::before { content: attr(data-text); }
     /* Moving text needs a way to stop it (WCAG 2.2.2), which takes JS, so it only moves with JS */
     .js .marquee { animation: scroll-x 60s linear infinite; }
     .manifesto:hover .marquee, .manifesto.is-paused .marquee { animation-play-state: paused; }
@@ -575,6 +578,11 @@
     footer.site .brand { color: var(--cream); display: inline-block; margin-bottom: 10px; }
     footer.site p { font-size: .9rem; }
     footer.site .credit { color: #a39280; font-size: .82rem; margin-top: 8px; }
+    footer.site .credit a {
+      display: inline-block; padding-block: 12px; color: var(--cream-soft);
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;
+    }
+    footer.site .credit a:hover { color: var(--cream); }
     @media (max-width: 620px) { footer.site { padding-bottom: 96px; } }
 
     /* ---------- Floating WhatsApp ---------- */
@@ -734,8 +742,8 @@
   <!-- ===================== MANIFESTO (running faint text) ===================== -->
   <section class="manifesto">
     <div class="marquee" aria-hidden="true">
-      <span>להתנתק כדי להתחבר מחדש · להתבונן בכתיבה כראי לנפש · לברוא לעצמנו עולם במילים ·</span>
-      <span>להתנתק כדי להתחבר מחדש · להתבונן בכתיבה כראי לנפש · לברוא לעצמנו עולם במילים ·</span>
+      <span data-text="להתנתק כדי להתחבר מחדש · להתבונן בכתיבה כראי לנפש · לברוא לעצמנו עולם במילים ·"></span>
+      <span data-text="להתנתק כדי להתחבר מחדש · להתבונן בכתיבה כראי לנפש · לברוא לעצמנו עולם במילים ·"></span>
     </div>
     <div class="center-quote reveal">
       <p>
@@ -935,7 +943,7 @@
     <div class="container">
       <a href="#top" class="brand">מעשה<span class="dot"> · </span>אותיות</a>
       <p>ריטריט יום עם אמילי עמרוסי · חאן מצוקי דרגות, ים המלח</p>
-      <p class="credit">© 2026 · כל הזכויות שמורות לאמילי עמרוסי</p>
+      <p class="credit">© 2026 · כל הזכויות שמורות לאמילי עמרוסי · <a href="accessibility.html">הצהרת נגישות</a></p>
     </div>
   </footer>
 

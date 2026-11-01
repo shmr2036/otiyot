@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 VENDOR = ROOT / 'tools' / 'vendor'
 SOURCE = ROOT / 'index.html'
 DEFAULT_OUT = ROOT / 'share' / 'maaseh-otiyot.html'
+SITE_URL = 'https://otiyot.emilim.net/'
 
 MAX_IMAGE_WIDTH = 1200
 JPEG_QUALITY = 80
@@ -121,6 +122,9 @@ def build(out_path: Path) -> None:
         return f'src="{jpeg_data_uri(ROOT / m.group(1))}"'
 
     html = re.sub(r'src="(assets/images/[^"]+\.jpe?g)"', to_inline, html)
+
+    # Pages that only exist on the site are linked by full URL.
+    html = html.replace('href="accessibility.html"', f'href="{SITE_URL}accessibility.html" target="_blank" rel="noopener"')
 
     html = html.replace('  </style>\n</head>', EXTRA_CSS + '  </style>\n</head>', 1)
 
