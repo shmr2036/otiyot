@@ -1,0 +1,8 @@
+# GitHub Pages builds with Jekyll only to keep internal files off the public site.
+# The HTML pages have no front matter, so Jekyll copies them unchanged.
+exclude:
+  - README.md
+  - PRODUCT.md
+  - tools/
+  - share/
+  - .gitignore

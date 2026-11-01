@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-src https://player.vimeo.com; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>מעשה אותיות · ריטריט יום עם אמילי עמרוסי</title>
   <meta name="description" content="מעשה אותיות — ריטריט יום עם אמילי עמרוסי. יום רביעי, נר חמישי של חנוכה, 9 בדצמבר, בחאן מצוקי דרגות שעל ים המלח. סדנאות כתיבה, תנועה, וארוחות מלאות." />
 
@@ -17,10 +19,10 @@
   <meta property="og:image:height" content="1080" />
   <meta property="og:locale" content="he_IL" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preload" href="assets/fonts/FrankRuhlLibre-hebrew.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/Assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <script src="assets/js/head.js"></script>
   <!-- Meta Pixel: paste the pixel snippet here once it is issued -->
 
   <style>
@@ -369,6 +371,7 @@
     .gallery-grid .tile.tall { grid-row: span 2; }
     .gallery-grid .tile img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
     .gallery-grid .tile:hover img { transform: scale(1.06); }
+    .gallery-grid .tile img.crop-top { object-position: center top; }
     @media (max-width: 760px) {
       .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; gap: 12px; }
       .gallery-grid .tile.wide { grid-column: span 2; }
@@ -683,7 +686,7 @@
         </div>
 
         <div class="photo-frame reveal">
-          <img src="assets/images/emily.jpg" width="1066" height="1600" loading="lazy" decoding="async" alt="אמילי עמרוסי" onerror="this.style.opacity=0" />
+          <img src="assets/images/emily.jpg" width="1066" height="1600" loading="lazy" decoding="async" alt="אמילי עמרוסי" />
         </div>
 
         <div class="intro-cta reveal">
@@ -727,13 +730,13 @@
       </div>
       <div class="gallery-grid reveal">
         <div class="tile wide tall">
-          <img src="assets/images/khan-terrace.jpg" width="1024" height="683" loading="lazy" decoding="async" alt="מרפסת חאן מצוקי דרגות עם נוף ים המלח" onerror="this.style.display='none'" />
+          <img src="assets/images/khan-terrace.jpg" width="1024" height="683" loading="lazy" decoding="async" alt="מרפסת חאן מצוקי דרגות עם נוף ים המלח" />
         </div>
         <div class="tile">
-          <img src="assets/images/khan-pavilion.jpg" width="2048" height="1365" loading="lazy" decoding="async" alt="ביתן החאן מול ים המלח" onerror="this.style.display='none'" />
+          <img src="assets/images/khan-pavilion.jpg" width="2048" height="1365" loading="lazy" decoding="async" alt="ביתן החאן מול ים המלח" />
         </div>
         <div class="tile">
-          <img src="assets/images/khan-evening.jpg" width="1080" height="955" style="object-position: center top" loading="lazy" decoding="async" alt="ביתן החאן בשעת ערב" onerror="this.style.display='none'" />
+          <img src="assets/images/khan-evening.jpg" width="1080" height="955" class="crop-top" loading="lazy" decoding="async" alt="ביתן החאן בשעת ערב" />
         </div>
       </div>
     </div>
@@ -789,7 +792,7 @@
       <div class="reels reveal">
         <figure class="reel">
           <div class="frame">
-            <iframe src="https://player.vimeo.com/video/1168767122?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
+            <iframe src="https://player.vimeo.com/video/1168767122?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" referrerpolicy="strict-origin-when-cross-origin"
                     title="איך זה נראה בריטריט הקודם" loading="lazy"
                     allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -797,7 +800,7 @@
         </figure>
         <figure class="reel">
           <div class="frame">
-            <iframe src="https://player.vimeo.com/video/1168764415?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1"
+            <iframe src="https://player.vimeo.com/video/1168764415?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" referrerpolicy="strict-origin-when-cross-origin"
                     title="מה אומרות המשתתפות" loading="lazy"
                     allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -953,96 +956,6 @@
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.157 5.335 5.492 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.511 5.26l-.999 3.648 3.736-.979zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
   </a>
 
-  <script>
-    // Header background on scroll
-    const header = document.getElementById('siteHeader');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 40);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    // Reveal-on-scroll (content is visible by default; see .js .reveal)
-    const reveals = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      reveals.forEach((el) => io.observe(el));
-    } else {
-      reveals.forEach((el) => el.classList.add('in'));
-    }
-
-    // Testimonials: one quote at a time, 4s each; long quotes get 2-3s more.
-    // Pauses on hover/focus and via the button; never auto-advances under reduced motion.
-    const rot = document.querySelector('.rotator');
-    if (rot) {
-      const slides = [...rot.querySelectorAll('.slide')];
-      const dotsWrap = rot.querySelector('.dots');
-      const pauseBtn = rot.querySelector('.rot-pause');
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let current = 0, paused = reduce, holding = false;
-
-      const dots = slides.map((_, n) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'rot-dot';
-        b.setAttribute('aria-label', `המלצה ${n + 1} מתוך ${slides.length}`);
-        b.addEventListener('click', () => { show(n); restart(); });
-        dotsWrap.appendChild(b);
-        return b;
-      });
-
-      function show(n) {
-        current = (n + slides.length) % slides.length;
-        slides.forEach((s, k) => {
-          s.classList.toggle('is-active', k === current);
-          s.setAttribute('aria-hidden', String(k !== current));
-        });
-        dots.forEach((d, k) => d.setAttribute('aria-current', String(k === current)));
-      }
-      const durations = slides.map((s) => {
-        const len = s.querySelector('blockquote').textContent.replace(/\s+/g, ' ').trim().length;
-        return 4000 + (len > 300 ? 3000 : len > 240 ? 2000 : 0);
-      });
-      let timer;
-      function restart() {
-        clearTimeout(timer);
-        timer = setTimeout(function step() {
-          if (!paused && !holding) show(current + 1);
-          timer = setTimeout(step, durations[current]);
-        }, durations[current]);
-      }
-      function setPaused(p) {
-        paused = p;
-        pauseBtn.setAttribute('aria-pressed', String(p));
-        pauseBtn.setAttribute('aria-label', p ? 'הפעלת החלפת ההמלצות' : 'עצירת החלפת ההמלצות');
-      }
-      pauseBtn.addEventListener('click', () => setPaused(!paused));
-      rot.addEventListener('mouseenter', () => { holding = true; });
-      rot.addEventListener('mouseleave', () => { holding = false; });
-      rot.addEventListener('focusin', () => { holding = true; });
-      rot.addEventListener('focusout', () => { holding = false; });
-
-      setPaused(paused);
-      show(0);
-      restart();
-    }
-
-    // Manifesto: pause/resume the running background text
-    const manifesto = document.querySelector('.manifesto');
-    const marqueeBtn = manifesto && manifesto.querySelector('.marquee-toggle');
-    if (marqueeBtn) {
-      marqueeBtn.addEventListener('click', () => {
-        const paused = manifesto.classList.toggle('is-paused');
-        marqueeBtn.setAttribute('aria-pressed', String(paused));
-        marqueeBtn.setAttribute('aria-label', paused ? 'הפעלת הטקסט הנע' : 'עצירת הטקסט הנע');
-      });
-    }
-
-    // FAQ — allow only one open at a time (optional, feels tidy)
-    const items = document.querySelectorAll('.faq-item');
-    items.forEach((it) => it.addEventListener('toggle', () => {
-      if (it.open) items.forEach((o) => { if (o !== it) o.open = false; });
-    }));
-  </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

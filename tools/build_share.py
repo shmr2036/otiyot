@@ -4,7 +4,7 @@ The output opens straight from a WhatsApp attachment on iPhone and Android:
 images and fonts are embedded as data URIs, so nothing else needs to travel
 with the file. The Vimeo embeds become poster links, because a local file
 cannot embed them. The page already renders fully without JavaScript, which
-matters for iPhone's file preview.
+matters for iPhone's file preview. Fonts, scripts and images are inlined.
 
 Usage: python3 tools/build_share.py [output.html]
 """
@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import base64
 import io
-import json
 import re
 import sys
 from pathlib import Path
@@ -69,16 +68,17 @@ def jpeg_data_uri(path: Path) -> str:
     return data_uri(min(original, buf.getvalue(), key=len), 'image/jpeg')
 
 
-def font_faces() -> str:
-    faces = []
-    for font in json.loads((VENDOR / 'fonts.json').read_text(encoding='utf-8')):
-        weights = font['weights']
-        src = data_uri((VENDOR / font['file']).read_bytes(), 'font/woff2')
-        faces.append(
-            f"    @font-face {{ font-family: '{font['family']}'; font-style: normal; "
-            f"font-weight: {min(weights)} {max(weights)}; font-display: swap; "
-            f"src: url({src}) format('woff2'); unicode-range: {font['unicode_range']}; }}")
-    return '<style>\n' + '\n'.join(faces) + '\n  </style>'
+def inline_fonts_css() -> str:
+    """assets/css/fonts.css with each woff2 url() replaced by a data URI."""
+    css = (ROOT / 'assets' / 'css' / 'fonts.css').read_text(encoding='utf-8')
+    css = re.sub(r"url\('\.\./fonts/([^']+)'\)",
+                 lambda m: f"url({data_uri((ROOT / 'assets' / 'fonts' / m.group(1)).read_bytes(), 'font/woff2')})",
+                 css)
+    return '<style>\n' + css + '  </style>'
+
+
+def inline_script(m: re.Match) -> str:
+    return '<script>\n' + (ROOT / m.group(1)).read_text(encoding='utf-8') + '</script>'
 
 
 def build(out_path: Path) -> None:
@@ -89,12 +89,16 @@ def build(out_path: Path) -> None:
     html = re.sub(r'\s*<!-- Meta Pixel:.*?-->', '', html)
     html = re.sub(r'\s*<meta property="og:image"[^>]*>', '', html)
 
-    # Google Fonts links -> embedded @font-face rules.
-    html, n_links = re.subn(r'\s*<link rel="preconnect"[^>]*>', '', html)
-    html, n_css = re.subn(r'<link href="https://fonts\.googleapis\.com/[^"]*" rel="stylesheet" />',
-                          font_faces(), html)
-    if n_css != 1:
-        sys.exit('expected one Google Fonts stylesheet link')
+    # The site's CSP only allows same-origin files; a standalone file carries everything as
+    # data: URIs and inline code, so it drops the policy (it has no user input to protect).
+    html = re.sub(r'\s*<meta http-equiv="Content-Security-Policy"[^>]*>', '', html)
+
+    # Self-hosted fonts and external scripts -> embedded.
+    html = re.sub(r'\s*<link rel="preload"[^>]*as="font"[^>]*>', '', html)
+    html, n_css = re.subn(r'<link rel="stylesheet" href="assets/css/fonts\.css" />', lambda _: inline_fonts_css(), html)
+    html, n_js = re.subn(r'<script src="(assets/js/[^"]+\.js)"></script>', inline_script, html)
+    if n_css != 1 or n_js != 2:
+        sys.exit(f'expected 1 font stylesheet and 2 scripts, found {n_css} and {n_js}')
 
     # Vimeo embeds -> poster links.
     videos: list[str] = []
@@ -109,8 +113,8 @@ def build(out_path: Path) -> None:
                 f'            <span class="play" aria-hidden="true">{PLAY_ICON}</span>\n'
                 f'          </a>')
 
-    html = re.sub(r'<div class="frame">\s*<iframe src="https://player\.vimeo\.com/video/(\d+)[^"]*"\s*'
-                  r'title="([^"]+)".*?</iframe>\s*</div>', to_poster, html, flags=re.S)
+    html = re.sub(r'<div class="frame">\s*<iframe src="https://player\.vimeo\.com/video/(\d+)[^"]*"'
+                  r'(?:[^>]*?\s)?title="([^"]+)".*?</iframe>\s*</div>', to_poster, html, flags=re.S)
     if len(videos) != 2:
         sys.exit(f'expected 2 Vimeo embeds, found {videos}')
 
@@ -130,9 +134,9 @@ def build(out_path: Path) -> None:
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding='utf-8')
-    leftovers = re.findall(r'(?:src|href)="(assets/[^"]+|https://fonts\.[^"]+)"', html)
+    leftovers = re.findall(r'(?:src|href)="(assets/[^"]+)"', html)
     print(f'{out_path}: {len(html.encode()) / 1024:.0f} KB | images {sorted(images)} | '
-          f'videos {videos} | font links removed {n_links + n_css} | leftover refs {leftovers}')
+          f'videos {videos} | leftover refs {leftovers}')
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ xdg-open index.html
 ```bash
 python3 tools/build_share.py   # -> share/maaseh-otiyot.html
 ```
-יוצר קובץ HTML אחד שהתמונות והפונטים מוטמעים בתוכו (`tools/vendor/`), והסרטונים מוצגים בו כקישורים ל-Vimeo. צריך להריץ מחדש אחרי כל שינוי ב-`index.html`.
+יוצר קובץ HTML אחד שהתמונות, הפונטים והסקריפטים מוטמעים בתוכו, והסרטונים מוצגים בו כקישורים ל-Vimeo. צריך להריץ מחדש אחרי כל שינוי ב-`index.html`.
 
 ## תמונות (`assets/images/`)
 | קובץ | מה זה | איפה מופיע |
@@ -38,6 +38,13 @@ python3 tools/build_share.py   # -> share/maaseh-otiyot.html
 הדף נבנה לפי ת"י 5568 / WCAG 2.1 AA. הצהרת הנגישות נמצאת ב-`accessibility.html`, עם קישור מהפוטר. רכזת הנגישות היא שולמית בן ישר.
 - כשמשנים תוכן בדף, צריך לעדכן ב-`accessibility.html` את תאריך העדכון ואת רשימת ההתאמות, אם הן משתנות.
 - כל תוכן חדש שזז או מתחלף צריך כפתור עצירה. תמונה חדשה צריכה טקסט חלופי, וסרטון חדש עם דיבור צריך כתוביות.
+
+## אבטחה
+- **CSP:** `<meta http-equiv="Content-Security-Policy">` בראש כל עמוד. GitHub Pages לא מאפשר להגדיר כותרות HTTP, ולכן המדיניות מוגדרת ב-meta. היא מתירה רק קבצים מהאתר עצמו, ובנוסף נגן Vimeo.
+  - **סקריפטים** נמצאים ב-`assets/js/`, ואין קוד JS בתוך ה-HTML. סקריפט inline חדש ייחסם.
+  - **פיקסל מטא:** כשמוסיפים אותו, צריך להעביר את הקוד שלו לקובץ ב-`assets/js/`, ולהוסיף ל-CSP את `https://connect.facebook.net` ב-`script-src`, ואת `https://www.facebook.com` ב-`img-src` וב-`connect-src`.
+- **פונטים** מתארחים באתר עצמו (`assets/fonts/`, `assets/css/fonts.css`), בלי Google Fonts.
+- **קבצים פנימיים:** האתר נבנה עם Jekyll רק כדי ש-`_config.yml` ישמור את `README.md`, `PRODUCT.md`, `tools/` ו-`share/` מחוץ לאתר הציבורי. הם עדיין גלויים במאגר עצמו, כי המאגר ציבורי.
 
 ## אירוח
 הדף מתארח ב-GitHub Pages (`shmr2036/otiyot`, ענף `main`, תיקיית השורש) בכתובת **https://otiyot.emilim.net/**. כל push ל-`main` עולה לאוויר תוך כדקה.
