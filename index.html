@@ -237,6 +237,13 @@
         linear-gradient(to bottom, transparent, #000 14%, #000 93%, transparent);
       mask-composite: intersect;
     }
+    /* Keyboard users can jump past the header straight to the content */
+    .skip-link {
+      position: absolute; inset-inline-start: 16px; top: -100px; z-index: 100;
+      background: var(--cream); color: var(--ink); font-weight: 700;
+      padding: 10px 20px; border-radius: 999px;
+    }
+    .skip-link:focus { top: 12px; }
     .sr-only {
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
@@ -377,13 +384,25 @@
        lands exactly on the start of the second copy (seamless in RTL). */
     .marquee {
       display: flex; width: max-content;
-      animation: scroll-x 60s linear infinite;
       opacity: .14;
       font-family: 'Frank Ruhl Libre', serif;
       font-size: clamp(2rem, 6vw, 4rem); font-weight: 700; white-space: nowrap;
     }
     .marquee span { padding-inline-end: 2.5rem; }
-    .manifesto:hover .marquee { animation-play-state: paused; }
+    /* Moving text needs a way to stop it (WCAG 2.2.2), which takes JS, so it only moves with JS */
+    .js .marquee { animation: scroll-x 60s linear infinite; }
+    .manifesto:hover .marquee, .manifesto.is-paused .marquee { animation-play-state: paused; }
+    .marquee-toggle {
+      position: absolute; inset-inline-end: 12px; bottom: 8px;
+      width: 44px; height: 44px; display: grid; place-items: center;
+      background: none; border: 0; cursor: pointer; color: var(--cream-soft);
+    }
+    html:not(.js) .marquee-toggle { display: none; }
+    .marquee-toggle:hover { color: var(--cream); }
+    .marquee-toggle:focus-visible { border-radius: 50%; outline-offset: -2px; }
+    .marquee-toggle svg { width: 18px; height: 18px; }
+    .marquee-toggle .i-play, .marquee-toggle[aria-pressed="true"] .i-pause { display: none; }
+    .marquee-toggle[aria-pressed="true"] .i-play { display: block; }
     @keyframes scroll-x { to { transform: translateX(50%); } }
     .manifesto .center-quote {
       position: relative; text-align: center; max-width: 760px; margin: 0 auto;
@@ -562,8 +581,9 @@
     .wa-float {
       position: fixed; inset-inline-start: 22px; bottom: 22px; z-index: 60;
       width: 58px; height: 58px; border-radius: 50%;
-      background: #25d366; display: grid; place-items: center;
-      box-shadow: 0 10px 28px -8px rgba(37,211,102,.7);
+      /* WhatsApp's dark green keeps the white icon at >=3:1 (the bright green was 1.98:1) */
+      background: #128c7e; display: grid; place-items: center;
+      box-shadow: 0 10px 28px -8px rgba(18,140,126,.7);
       transition: transform .25s var(--ease);
     }
     .wa-float:hover { transform: scale(1.08); }
@@ -581,10 +601,12 @@
       * { animation: none !important; scroll-behavior: auto !important; }
       .js .reveal { opacity: 1; transform: none; transition: none; }
       .marquee { opacity: .12; }
+      .marquee-toggle { display: none; }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site" id="siteHeader">
@@ -593,8 +615,10 @@
       <span class="brand-sub">סדנת כתיבה עם אמילי עמרוסי</span>
     </a>
     <a href="https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=790f586f-6197-4308-b5bf-d2cef41788ca"
-       class="btn nav-cta" target="_blank" rel="noopener">אמילי אני איתך</a>
+       class="btn nav-cta" target="_blank" rel="noopener" aria-label="אמילי אני איתך – להרשמה ולתשלום (נפתח בכרטיסייה חדשה)">אמילי אני איתך</a>
   </header>
+
+  <main id="main">
 
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="top">
@@ -656,7 +680,7 @@
 
         <div class="intro-cta reveal">
           <a href="https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=790f586f-6197-4308-b5bf-d2cef41788ca"
-             class="btn" target="_blank" rel="noopener">אמילי אני איתך</a>
+             class="btn" target="_blank" rel="noopener" aria-label="אמילי אני איתך – להרשמה ולתשלום (נפתח בכרטיסייה חדשה)">אמילי אני איתך</a>
         </div>
       </div>
     </div>
@@ -720,6 +744,10 @@
         יום של עומק, צמיחה, פענוח עצמי, הפוגה, שחרור. לברוא לעצמך אדמה — ולזכור שיש שמיים.
       </p>
     </div>
+    <button type="button" class="marquee-toggle" aria-pressed="false" aria-label="עצירת הטקסט הנע">
+      <svg class="i-pause" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      <svg class="i-play" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M17 5.5v13a1 1 0 0 1-1.5.86l-11-6.5a1 1 0 0 1 0-1.72l11-6.5A1 1 0 0 1 17 5.5z"/></svg>
+    </button>
   </section>
 
   <!-- ===================== PRICING ===================== -->
@@ -739,7 +767,7 @@
           מספר המקומות מוגבל
         </p>
         <a href="https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=790f586f-6197-4308-b5bf-d2cef41788ca"
-           class="btn btn--lg" target="_blank" rel="noopener">אמילי אני איתך</a>
+           class="btn btn--lg" target="_blank" rel="noopener" aria-label="אמילי אני איתך – להרשמה ולתשלום (נפתח בכרטיסייה חדשה)">אמילי אני איתך</a>
       </div>
     </div>
   </section>
@@ -893,12 +921,14 @@
       </p>
       <div class="cta-row reveal">
         <a href="https://private.invoice4u.co.il/newsite/he/clearing/public/i4u-clearing?ProductGuid=790f586f-6197-4308-b5bf-d2cef41788ca"
-           class="btn btn--lg" target="_blank" rel="noopener">להרשמה ותשלום</a>
+           class="btn btn--lg" target="_blank" rel="noopener" aria-label="להרשמה ותשלום (נפתח בכרטיסייה חדשה)">להרשמה ותשלום</a>
         <a href="https://wa.me/972505449120?text=%D7%94%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%9E%D7%A2%D7%A9%D7%94%20%D7%90%D7%95%D7%AA%D7%99%D7%95%D7%AA"
-           class="btn btn--cream btn--lg" target="_blank" rel="noopener">יש לך שאלות? דברי איתנו</a>
+           class="btn btn--cream btn--lg" target="_blank" rel="noopener" aria-label="יש לך שאלות? דברי איתנו בוואטסאפ (נפתח בכרטיסייה חדשה)">יש לך שאלות? דברי איתנו</a>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="site">
@@ -911,7 +941,7 @@
 
   <!-- Floating WhatsApp (Shulamit) -->
   <a class="wa-float" href="https://wa.me/972505449120?text=%D7%94%D7%99%2C%20%D7%99%D7%A9%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%A2%D7%9C%20%D7%9E%D7%A2%D7%A9%D7%94%20%D7%90%D7%95%D7%AA%D7%99%D7%95%D7%AA"
-     target="_blank" rel="noopener" aria-label="דברי איתנו בוואטסאפ">
+     target="_blank" rel="noopener" aria-label="דברי איתנו בוואטסאפ (נפתח בכרטיסייה חדשה)">
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.157 5.335 5.492 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.82 9.82 0 0 0 1.511 5.26l-.999 3.648 3.736-.979zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
   </a>
 
@@ -987,6 +1017,17 @@
       setPaused(paused);
       show(0);
       restart();
+    }
+
+    // Manifesto: pause/resume the running background text
+    const manifesto = document.querySelector('.manifesto');
+    const marqueeBtn = manifesto && manifesto.querySelector('.marquee-toggle');
+    if (marqueeBtn) {
+      marqueeBtn.addEventListener('click', () => {
+        const paused = manifesto.classList.toggle('is-paused');
+        marqueeBtn.setAttribute('aria-pressed', String(paused));
+        marqueeBtn.setAttribute('aria-label', paused ? 'הפעלת הטקסט הנע' : 'עצירת הטקסט הנע');
+      });
     }
 
     // FAQ — allow only one open at a time (optional, feels tidy)
