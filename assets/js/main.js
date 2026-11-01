@@ -82,27 +82,6 @@ if (marqueeBtn) {
   });
 }
 
-// Testimonial reels: load the Vimeo player only on click.
-// Lighter on mobile (no two autoplaying videos, no black frame on load);
-// without JS the facade link opens the video on Vimeo instead.
-document.querySelectorAll('.reel-play').forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    const id = btn.dataset.vimeo;
-    if (!id) return;
-    e.preventDefault();
-    const frame = document.createElement('div');
-    frame.className = 'frame';
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1&playsinline=1&title=0&byline=0&portrait=0&dnt=1`;
-    iframe.title = btn.getAttribute('aria-label').replace('נגני סרטון: ', '');
-    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    frame.appendChild(iframe);
-    btn.replaceWith(frame);
-  });
-});
-
 // FAQ — allow only one open at a time (optional, feels tidy)
 const items = document.querySelectorAll('.faq-item');
 items.forEach((it) => it.addEventListener('toggle', () => {

@@ -445,28 +445,10 @@
     }
     .reels { display: flex; justify-content: center; gap: 16px; margin-bottom: clamp(44px, 7vw, 72px); }
     .reel { width: clamp(160px, 17vw, 220px); }
-    /* Click-to-play facade: a real poster frame, no autoplay, no black box on load.
-       Without JS the link opens the video on Vimeo; with JS it plays inline. */
-    .reel-play {
-      display: block; width: 100%; padding: 0; border: 0; cursor: pointer;
-      position: relative; aspect-ratio: 240 / 426;
-      border-radius: var(--radius); overflow: hidden;
-      background: var(--dark-3);
-    }
-    .reel-play img { width: 100%; height: 100%; object-fit: cover; }
-    .reel-play .play {
-      position: absolute; inset: 0; margin: auto;
-      width: 62px; height: 62px; border-radius: 50%;
-      display: grid; place-items: center;
-      background: rgba(27,20,16,.5); color: var(--cream);
-      transition: transform .25s var(--ease), background .25s var(--ease);
-    }
-    .reel-play .play svg { width: 26px; height: 26px; margin-inline-start: 3px; }
-    .reel-play:hover .play, .reel-play:focus-visible .play { background: var(--ember-btn); transform: scale(1.08); }
-    .reel-play:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+    /* Muted autoplay loop that starts when scrolled into view (loading=lazy) */
     .reel .frame {
       aspect-ratio: 240 / 426; border-radius: var(--radius); overflow: hidden;
-      background: #000;
+      background: var(--dark-3);
     }
     .reel iframe { display: block; width: 100%; height: 100%; border: 0; }
     .reel figcaption { margin-top: 12px; color: var(--cream-soft); font-size: .95rem; line-height: 1.4; text-align: center; }
@@ -786,17 +768,19 @@
 
       <div class="reels reveal">
         <figure class="reel">
-          <a class="reel-play" href="https://vimeo.com/1168767122" target="_blank" rel="noopener"
-             data-vimeo="1168767122" aria-label="נגני סרטון: איך זה נראה בריטריט הקודם">
-            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg></span>
-          </a>
+          <div class="frame">
+            <iframe src="https://player.vimeo.com/video/1168767122?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" referrerpolicy="strict-origin-when-cross-origin"
+                    title="איך זה נראה בריטריט הקודם" loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
           <figcaption>איך זה נראה בריטריט הקודם</figcaption>
         </figure>
         <figure class="reel">
-          <a class="reel-play" href="https://vimeo.com/1168764415" target="_blank" rel="noopener"
-             data-vimeo="1168764415" aria-label="נגני סרטון: מה אומרות המשתתפות">
-            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l11-6.5a1 1 0 0 0 0-1.72l-11-6.5A1 1 0 0 0 8 5.5z"/></svg></span>
-          </a>
+          <div class="frame">
+            <iframe src="https://player.vimeo.com/video/1168764415?autoplay=1&amp;muted=1&amp;loop=1&amp;playsinline=1&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1" referrerpolicy="strict-origin-when-cross-origin"
+                    title="מה אומרות המשתתפות" loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
           <figcaption>מה אומרות המשתתפות</figcaption>
         </figure>
       </div>
