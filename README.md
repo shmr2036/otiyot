@@ -42,7 +42,12 @@ python3 tools/build_share.py   # -> share/maaseh-otiyot.html
 ## אבטחה
 - **CSP:** `<meta http-equiv="Content-Security-Policy">` בראש כל עמוד. GitHub Pages לא מאפשר להגדיר כותרות HTTP, ולכן המדיניות מוגדרת ב-meta. היא מתירה רק קבצים מהאתר עצמו, ובנוסף נגן Vimeo.
   - **סקריפטים** נמצאים ב-`assets/js/`, ואין קוד JS בתוך ה-HTML. סקריפט inline חדש ייחסם.
-  - **פיקסל מטא:** כשמוסיפים אותו, צריך להעביר את הקוד שלו לקובץ ב-`assets/js/`, ולהוסיף ל-CSP את `https://connect.facebook.net` ב-`script-src`, ואת `https://www.facebook.com` ב-`img-src` וב-`connect-src`.
+  - **פיקסל מטא** (`assets/js/meta-pixel.js`, מזהה 1649137836854163): ה-CSP מתיר לו את `connect.facebook.net` ב-`script-src`, ואת `www.facebook.com` ב-`img-src` וב-`connect-src`. האירועים שנשלחים:
+    - `PageView` בכניסה לדף.
+    - `InitiateCheckout` בלחיצה על כל קישור ל-invoice4u.
+    - `Contact` בלחיצה על וואטסאפ.
+
+    הפיקסל לא נכלל בקובץ לוואטסאפ.
 - **פונטים** מתארחים באתר עצמו (`assets/fonts/`, `assets/css/fonts.css`), בלי Google Fonts.
 - **קבצים פנימיים:** האתר נבנה עם Jekyll רק כדי ש-`_config.yml` ישמור את `README.md`, `PRODUCT.md`, `tools/` ו-`share/` מחוץ לאתר הציבורי. הם עדיין גלויים במאגר עצמו, כי המאגר ציבורי.
 

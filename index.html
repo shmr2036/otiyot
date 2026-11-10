@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; frame-src https://player.vimeo.com; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' https://www.facebook.com; font-src 'self'; frame-src https://player.vimeo.com; connect-src https://www.facebook.com https://connect.facebook.net; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>מעשה אותיות · ריטריט יום עם אמילי עמרוסי</title>
   <meta name="description" content="מעשה אותיות — ריטריט יום עם אמילי עמרוסי. יום רביעי, נר חמישי של חנוכה, 9 בדצמבר, בחאן מצוקי דרגות שעל ים המלח. סדנאות כתיבה, תנועה, וארוחות מלאות." />
@@ -23,7 +23,7 @@
   <link rel="preload" href="assets/fonts/Assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/css/fonts.css" />
   <script src="assets/js/head.js"></script>
-  <!-- Meta Pixel: paste the pixel snippet here once it is issued -->
+  <script src="assets/js/meta-pixel.js"></script>
 
   <style>
     /* ============================================================
@@ -595,6 +595,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main">דלג לתוכן הראשי</a>
+  <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1649137836854163&amp;ev=PageView&amp;noscript=1" /></noscript>
 
   <!-- ===================== HEADER ===================== -->
   <header class="site" id="siteHeader">

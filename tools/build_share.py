@@ -93,6 +93,10 @@ def build(out_path: Path) -> None:
     # data: URIs and inline code, so it drops the policy (it has no user input to protect).
     html = re.sub(r'\s*<meta http-equiv="Content-Security-Policy"[^>]*>', '', html)
 
+    # The Meta Pixel only makes sense on the hosted page, not in a file opened from WhatsApp.
+    html = re.sub(r'\s*<script src="assets/js/meta-pixel\.js"></script>', '', html)
+    html = re.sub(r'\s*<noscript><img[^>]*facebook\.com/tr[^>]*></noscript>', '', html)
+
     # Self-hosted fonts and external scripts -> embedded.
     html = re.sub(r'\s*<link rel="preload"[^>]*as="font"[^>]*>', '', html)
     html, n_css = re.subn(r'<link rel="stylesheet" href="assets/css/fonts\.css" />', lambda _: inline_fonts_css(), html)
